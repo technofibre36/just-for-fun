@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>No Rockfall Prediction — Access</title>
+    <meta name="description" content="Access portal (login / signup) — rockfall prediction removed." />
+
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              display: ["Inter", "ui-sans-serif", "system-ui", "-apple-system", "Segoe UI", "Roboto", "Ubuntu", "Cantarell", "Noto Sans", "Helvetica Neue", "Arial", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <style>html { scroll-behavior: smooth; } :focus-visible { outline: 2px solid rgb(59 130 246); outline-offset: 2px; }</style>
+  </head>
+  <body class="min-h-screen font-display bg-gradient-to-br from-slate-50 via-white to-slate-50 text-slate-800">
+
+    <!-- NAVBAR -->
+    <header class="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-white/60 bg-white/80 border-b border-slate-200">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="flex h-16 items-center justify-between">
+          <a href="#" class="inline-flex items-center gap-2.5">
+            <span class="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-red-600 text-white font-semibold">NR</span>
+            <span class="text-lg font-semibold tracking-tight">Rockfall</span>
+          </a>
+
+          <nav class="hidden md:flex items-center gap-4 text-sm">
+            <a class="hover:text-slate-900 text-slate-600" href="/login">Login</a>
+            <a class="hover:text-slate-900 text-slate-600" href="/register">Sign up</a>
+            <a class="inline-flex items-center rounded-xl border border-slate-300 px-3 py-1.5 hover:bg-slate-50" href="#contact">Contact</a>
+          </nav>
+
+          <button id="menuBtn" class="md:hidden inline-flex items-center justify-center rounded-xl border border-slate-300 p-2" aria-controls="mobileMenu" aria-expanded="false" aria-label="Toggle navigation">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+          </button>
+        </div>
+      </div>
+      <div id="mobileMenu" class="md:hidden hidden border-t border-slate-200 bg-white">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-3 space-y-2 text-sm">
+          <a class="block px-2 py-2 rounded-lg hover:bg-slate-50" href="/login">Login</a>
+          <a class="block px-2 py-2 rounded-lg hover:bg-slate-50" href="/register">Sign up</a>
+          <a class="block px-2 py-2 rounded-lg hover:bg-slate-50" href="#contact">Contact</a>
+        </div>
+      </div>
+    </header>
+
+    <!-- HERO: focused on access -->
+    <main class="py-20">
+      <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
+        <h1 class="text-4xl sm:text-5xl font-bold tracking-tight text-slate-900">Rockfall prediction is disabled</h1>
+        <p class="mt-4 text-slate-600">This project currently has the rockfall prediction feature turned off. Use the buttons below to sign in or create an account.</p>
+
+        <div class="mt-8 flex items-center justify-center gap-4">
+          <a href="/login" class="inline-flex items-center justify-center rounded-xl bg-red-600 px-6 py-3 text-white font-medium shadow hover:bg-red-700">Go to Login</a>
+          <a href="/register" class="inline-flex items-center justify-center rounded-xl border border-slate-300 px-6 py-3 font-medium hover:bg-slate-50">Sign up</a>
+        </div>
+
+        <div class="mt-6 text-sm text-slate-500">If you expected rockfall prediction, contact the admin for access.</div>
+      </div>
+    </main>
+
+    <!-- SIMPLE FOOTER -->
+    <footer class="border-t border-slate-200 bg-white/60">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="py-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-slate-600">
+          <p>© <span id="year"></span> No Rockfall. All rights reserved.</p>
+          <nav class="flex items-center gap-5">
+            <a href="#" class="hover:text-slate-900">Privacy</a>
+            <a href="#" class="hover:text-slate-900">Terms</a>
+          </nav>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      const btn = document.getElementById('menuBtn');
+      const menu = document.getElementById('mobileMenu');
+      btn?.addEventListener('click', () => {
+        const expanded = btn.getAttribute('aria-expanded') === 'true';
+        btn.setAttribute('aria-expanded', String(!expanded));
+        menu.classList.toggle('hidden');
+      });
+      document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>

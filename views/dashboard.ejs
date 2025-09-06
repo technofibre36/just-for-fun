@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>No Rockfall — Dashboard</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              display: ["Inter", "ui-sans-serif", "system-ui"],
+            },
+          },
+        },
+      };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="min-h-screen bg-slate-100 font-display text-slate-800">
+    <nav class="bg-white shadow-sm border-b border-slate-200">
+      <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div
+            class="h-10 w-10 flex items-center justify-center rounded-lg bg-red-600 text-white font-bold"
+          >
+            NR
+          </div>
+          <span class="text-xl font-bold">Rockfall</span>
+        </div>
+        <div class="flex items-center gap-6">
+          <span class="text-slate-600">Welcome, <%= username %> </span>
+          <a
+            href="/logout"
+            class="rounded-lg bg-red-600 px-4 py-2 text-sm text-white font-medium hover:bg-red-700"
+            >Logout</a
+          >
+        </div>
+      </div>
+    </nav>
+
+    <div class="max-w-6xl mx-auto mt-6 grid grid-cols-1 md:grid-cols-4 gap-6 px-4">
+      <aside class="hidden md:block col-span-1">
+        <div class="bg-white rounded-xl p-4 shadow-sm border border-slate-200">
+          <h2 class="font-semibold text-slate-800">Navigation</h2>
+          <ul class="mt-4 space-y-2 text-slate-700 text-sm">
+            <li><a href="#home" class="hover:text-red-600">Home</a></li>
+            <li><a href="#prediction" class="hover:text-red-600">Rockfall Prediction</a></li>
+            <li><a href="/prediction" class="hover:text-red-600">Rockfall written</a></li>
+            <li><a href="#news" class="hover:text-red-600">News Section</a></li>
+            <li><a href="#chat" class="hover:text-red-600">AI Chat</a></li>
+            <li><a href="#" class="hover:text-red-600">Settings</a></li>
+          </ul>
+        </div>
+      </aside>
+
+      <main class="col-span-3 space-y-6">
+
+        <section id="home" class="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
+          <h2 class="text-2xl font-bold text-slate-800 mb-4">Welcome to No Rockfall</h2>
+          <p class="text-slate-700">
+            This dashboard helps you predict and monitor potential rockfall areas.
+            Use the navigation to access different features like the **Rockfall Prediction**
+            tool, the **News Section** for the latest updates, and the **AI Chat**
+            for assistance.
+          </p>
+        </section>
+
+        <section id="prediction" class="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
+          <h2 class="text-2xl font-bold text-slate-800 mb-4">Rockfall Prediction</h2>
+          <p class="text-slate-700 mb-4">
+            Upload images of a mountainous area to have our machine learning model
+            analyze it for potential rockfall risks. The predicted risk level will
+            be displayed below.
+          </p>
+
+          <div class="border-2 border-dashed border-slate-300 rounded-lg p-6 text-center">
+            <input
+              type="file"
+              id="image-upload"
+              accept="image/*"
+              class="hidden"
+            />
+            <label
+              for="image-upload"
+              class="cursor-pointer text-red-600 font-medium hover:text-red-700"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="mx-auto h-12 w-12 text-slate-400"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M7 16a4 4 0 01-.883 2.117A4 4 0 013 20c-1.657 0-3-1.343-3-3s1.343-3 3-3a4 4 0 011.883-.883A4.001 4.001 0 017 16zM15 12h-4v4l-4-4 4-4v4h4zM19 12a4 4 0 01-3 1.342V15a4 4 0 00-3-1.342V12h-2v4h2v-2a4 4 0 013-1.342V12h4a4 4 0 00-4-4V5a4 4 0 014 4v3h2a4 4 0 01-4 4z"
+                />
+              </svg>
+              <span>Click to upload image</span>
+            </label>
+            <p class="mt-2 text-sm text-slate-500">PNG, JPG, GIF up to 10MB</p>
+          </div>
+
+          <div id="predicted-area" class="mt-6 p-4 bg-slate-50 rounded-lg border border-slate-200 hidden">
+            <h3 class="font-semibold text-lg text-slate-800">Predicted Result:</h3>
+            <p class="mt-2 text-red-600 font-bold text-xl">High Risk</p>
+            <p class="text-sm text-slate-500">Based on image analysis</p>
+          </div>
+        </section>
+        
+        <section id="news" class="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
+          <h2 class="text-2xl font-bold text-slate-800 mb-4">Latest Rockfall News</h2>
+          <div class="space-y-4">
+            <div class="border-b border-slate-200 pb-4">
+              <h3 class="font-semibold text-lg text-slate-800">Rockfall closes mountain pass in Colorado</h3>
+              <p class="text-sm text-slate-500">October 26, 2025</p>
+              <p class="mt-2 text-slate-700">
+                A significant rockfall event has led to the temporary closure of Highway 50 near Monarch Pass.
+                Emergency crews are on site to clear the debris and assess the stability of the slope.
+              </p>
+            </div>
+            <div class="border-b border-slate-200 pb-4">
+              <h3 class="font-semibold text-lg text-slate-800">New drone technology for rockfall monitoring</h3>
+              <p class="text-sm text-slate-500">October 24, 2025</p>
+              <p class="mt-2 text-slate-700">
+                Researchers at a local university have developed an AI-powered drone system to monitor
+                and detect subtle movements in cliffs, potentially preventing future rockfall incidents.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section id="chat" class="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
+          <h2 class="text-2xl font-bold text-slate-800 mb-4">Chat with No Rockfall AI</h2>
+          <div class="h-64 overflow-y-auto border border-slate-300 rounded-lg p-4 space-y-4 mb-4">
+            <div class="flex justify-start">
+              <div class="bg-slate-200 rounded-lg p-3 max-w-sm">
+                <p class="text-sm">Hello! I'm here to help you. Ask me anything about rockfall prevention or safety.</p>
+              </div>
+            </div>
+            <div class="flex justify-end">
+              <div class="bg-red-600 text-white rounded-lg p-3 max-w-sm">
+                <p class="text-sm">What are some common causes of rockfall?</p>
+              </div>
+            </div>
+          </div>
+          <form onsubmit="event.preventDefault(); alert('Message Sent!');">
+            <div class="flex gap-2">
+              <input
+                type="text"
+                placeholder="Type your message..."
+                class="w-full rounded-lg border border-slate-300 p-3 focus:ring-2 focus:ring-red-400"
+              />
+              <button
+                type="submit"
+                class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 font-medium"
+              >
+                Send
+              </button>
+            </div>
+          </form>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

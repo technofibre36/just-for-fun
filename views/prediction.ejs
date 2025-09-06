@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>No Rockfall — Prediction</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              display: ["Inter", "ui-sans-serif", "system-ui"],
+            },
+          },
+        },
+      };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="min-h-screen bg-slate-100 font-display text-slate-800">
+    <!-- Navbar -->
+    <nav class="bg-white shadow-sm border-b border-slate-200">
+      <div class="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div
+            class="h-10 w-10 flex items-center justify-center rounded-lg bg-red-600 text-white font-bold"
+          >
+            NR
+          </div>
+          <span class="text-xl font-bold">Rockfall</span>
+        </div>
+        <a
+          href="/dashboard"
+          class="rounded-lg bg-red-600 px-4 py-2 text-sm text-white font-medium hover:bg-red-700"
+          >Dashboard</a
+        >
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-3xl mx-auto mt-10 px-4">
+      <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+        <h1 class="text-2xl font-bold text-slate-800 mb-6">
+          🌍 Rockfall Prediction
+        </h1>
+
+        <form action="/prediction" method="POST" class="space-y-4">
+          <!-- Rainfall -->
+          <div>
+            <label class="block text-sm font-medium text-slate-700 mb-1">Rainfall (mm)</label>
+            <input
+              type="number"
+              step="0.01"
+              name="Rainfall_mm"
+              required
+              class="w-full rounded-lg border border-slate-300 p-3 focus:ring-2 focus:ring-red-400"
+            />
+          </div>
+
+          <!-- Slope Angle -->
+          <div>
+            <label class="block text-sm font-medium text-slate-700 mb-1">Slope Angle</label>
+            <input
+              type="number"
+              step="0.01"
+              name="Slope_Angle"
+              required
+              class="w-full rounded-lg border border-slate-300 p-3 focus:ring-2 focus:ring-red-400"
+            />
+          </div>
+
+          <!-- Soil Saturation -->
+          <div>
+            <label class="block text-sm font-medium text-slate-700 mb-1">Soil Saturation</label>
+            <input
+              type="number"
+              step="0.01"
+              name="Soil_Saturation"
+              required
+              class="w-full rounded-lg border border-slate-300 p-3 focus:ring-2 focus:ring-red-400"
+            />
+          </div>
+
+          <!-- Vegetation Cover -->
+          <div>
+            <label class="block text-sm font-medium text-slate-700 mb-1">Vegetation Cover</label>
+            <input
+              type="number"
+              step="0.01"
+              name="Vegetation_Cover"
+              required
+              class="w-full rounded-lg border border-slate-300 p-3 focus:ring-2 focus:ring-red-400"
+            />
+          </div>
+
+          <!-- Earthquake Activity -->
+          <div>
+            <label class="block text-sm font-medium text-slate-700 mb-1">Earthquake Activity</label>
+            <input
+              type="number"
+              step="0.01"
+              name="Earthquake_Activity"
+              required
+              class="w-full rounded-lg border border-slate-300 p-3 focus:ring-2 focus:ring-red-400"
+            />
+          </div>
+
+          <!-- Proximity to Water -->
+          <div>
+            <label class="block text-sm font-medium text-slate-700 mb-1">Proximity to Water</label>
+            <input
+              type="number"
+              step="0.01"
+              name="Proximity_to_Water"
+              required
+              class="w-full rounded-lg border border-slate-300 p-3 focus:ring-2 focus:ring-red-400"
+            />
+          </div>
+
+          <!-- Soil Types -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div>
+              <label class="block text-sm font-medium text-slate-700 mb-1">Soil Type Gravel</label>
+              <input
+                type="number"
+                name="Soil_Type_Gravel"
+                min="0"
+                max="1"
+                required
+                class="w-full rounded-lg border border-slate-300 p-3 focus:ring-2 focus:ring-red-400"
+              />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-slate-700 mb-1">Soil Type Sand</label>
+              <input
+                type="number"
+                name="Soil_Type_Sand"
+                min="0"
+                max="1"
+                required
+                class="w-full rounded-lg border border-slate-300 p-3 focus:ring-2 focus:ring-red-400"
+              />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-slate-700 mb-1">Soil Type Silt</label>
+              <input
+                type="number"
+                name="Soil_Type_Silt"
+                min="0"
+                max="1"
+                required
+                class="w-full rounded-lg border border-slate-300 p-3 focus:ring-2 focus:ring-red-400"
+              />
+            </div>
+          </div>
+
+          <!-- Submit Button -->
+          <button
+            type="submit"
+            class="w-full bg-red-600 text-white px-4 py-3 rounded-lg hover:bg-red-700 font-medium"
+          >
+            Predict
+          </button>
+        </form>
+
+        <!-- Result -->
+        <% if (result) { %>
+        <div class="mt-6 p-4 rounded-lg border
+          <%= result.error ? 'border-red-300 bg-red-50' : 'border-green-300 bg-green-50' %>">
+          <h2 class="text-lg font-semibold text-slate-800 mb-2">Prediction Result</h2>
+
+          <% if (result.error) { %>
+            <p class="text-red-600"><%= result.error %></p>
+          <% } else { %>
+            <p class="font-medium">
+              Prediction:
+              <span class="<%= result.prediction === 1 ? 'text-red-600 font-bold' : 'text-green-600 font-bold' %>">
+                <%= result.prediction === 1 ? "🚨 High probability of Rockfall" : "✅ Low probability of Rockfall" %>
+              </span>
+            </p>
+            <p class="text-sm text-slate-600">Probability: <%= result.probability %></p>
+          <% } %>
+        </div>
+        <% } %>
+      </div>
+    </main>
+  </body>
+</html>

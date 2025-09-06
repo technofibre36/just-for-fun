@@ -1,0 +1,165 @@
+# %%
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+
+
+# %%
+import pandas as pd
+
+try:
+    df = pd.read_csv("ambiguous_landslide_dataset.csv")
+    print("File loaded successfully!")
+except FileNotFoundError:
+    print("Error: The 'ambiguous_landslide_dataset.csv' file was not found.")
+    print("Please make sure the file is in the same folder as this notebook.")
+    df = None
+
+
+
+# %%
+import pandas as pd
+
+# Load dataset
+df = pd.read_csv("ambiguous_landslide_dataset.csv")
+
+# Rename 'Landslide' → 'Rockfall'
+df = df.rename(columns={"Landslide": "Rockfall"})
+
+# Check result
+print(df.columns)
+
+# (Optional) Save updated dataset
+df.to_csv("ambiguous_landslide_dataset_updated.csv", index=False)
+print("✅ Column renamed and file saved as 'ambiguous_landslide_dataset_updated.csv'")
+
+
+
+# %%
+X = df.drop('Rockfall', axis=1)
+y = df['Rockfall']
+
+
+# %% [markdown]
+# import the dependencies
+
+# %%
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
+
+# %% [markdown]
+# # Load the modified dataset
+
+# %%
+df = pd.read_csv("ambiguous_landslide_dataset.csv")
+
+# %% [markdown]
+# # Separate features (X) and target (y)
+# 
+
+# %%
+df = df.rename(columns={"Landslide": "Rockfall"})
+
+
+# %%
+target = "Rockfall"
+X = df.drop(columns=[target])
+y = df[target]
+
+
+# %% [markdown]
+# # Split the data into training and testing sets
+# 
+
+# %%
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42
+)
+
+# %% [markdown]
+# # Initialize and train the Random Forest Classifier
+
+# %%
+rf_model = RandomForestClassifier(n_estimators=100, random_state=42)
+rf_model.fit(X_train, y_train)
+
+# %% [markdown]
+# 
+
+# %%
+y_pred = rf_model.predict(X_test)
+
+# %%
+print("✅ Accuracy:", accuracy_score(y_test, y_pred))
+print("\nClassification Report:\n", classification_report(y_test, y_pred))
+print("\nConfusion Matrix:\n", confusion_matrix(y_test, y_pred))
+
+# %% [markdown]
+# # --- Function to get user input and make a prediction
+# 
+
+# %%
+def predict_Rockfall():
+    print("\nPlease enter the values for the following features to predict a Rockfall.")
+    print("Use decimal values for features like Rainfall, Slope, and Proximity to Water.")
+    print("Use 0 or 1 for the Soil_Type features (0 = No, 1 = Yes).")
+
+
+
+# %% [markdown]
+#  # Get user inputs for all features
+# 
+
+# %%
+rainfall = float(input("Rainfall_mm: "))
+slope = float(input("Slope_Angle: "))
+soil_saturation = float(input("Soil_Saturation: "))
+vegetation_cover = float(input("Vegetation_Cover: "))
+earthquake_activity = float(input("Earthquake_Activity: "))
+proximity_to_water = float(input("Proximity_to_Water: "))
+soil_type_gravel = int(input("Soil_Type_Gravel (0 or 1): "))
+soil_type_sand = int(input("Soil_Type_Sand (0 or 1): "))
+soil_type_silt = int(input("Soil_Type_Silt (0 or 1): "))
+
+
+# %% [markdown]
+#     # Create a DataFrame from the user's input
+# 
+
+# %%
+user_data = pd.DataFrame([[
+        rainfall, slope, soil_saturation, vegetation_cover, earthquake_activity,
+        proximity_to_water, soil_type_gravel, soil_type_sand, soil_type_silt
+    ]], columns=X.columns)
+
+
+# %% [markdown]
+# # Make a prediction
+# 
+
+# %%
+prediction = rf_model.predict(user_data)
+
+
+# %% [markdown]
+# # Print the result
+# 
+
+# %%
+if prediction[0] == 1:
+        print("\nPrediction: There is a high probability of a Rockfall occurring.")
+else:
+        print("\nPrediction: There is a low probability of a Rockfall occurring.")
+
+
+
+# %% [markdown]
+# # Run the prediction function
+# 
+
+# %%
+predict_Rockfall()
+
+
